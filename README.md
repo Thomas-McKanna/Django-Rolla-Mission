@@ -3,7 +3,9 @@ Django website for CS 4096 (Spring 2020).
 
 ## Setup
 
-- Download and install Postgres on your local machine. Make sure to remember the password you choose.
+- Download and install Postgres on your local machine. If prompted for a username, use "postgres". **When prompted for the password, use "password"**. This is important in ensuring that the setting in Django are correct. 
+
+- Either through the terminal (psql) or via a GUI, **create a database named "mission".**
 
 - Clone this repository to your computer.
 
@@ -13,6 +15,8 @@ Django website for CS 4096 (Spring 2020).
 
 - Run `python manage.py migrate` to create the necessary database tables.
 
-- Run `python manage.pu runserver` to start the server.
+- Run `python manage.py createsuperuser` to make a user for logging into the admin interface. It doesn't really matter what the username and password are, but I suggest username "admin" and password "password".
+
+- Run `python manage.py runserver` to start the server.
 
 
