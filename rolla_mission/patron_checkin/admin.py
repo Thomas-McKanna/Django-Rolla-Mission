@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Patron, CheckIn
+
+admin.site.register(Patron)
