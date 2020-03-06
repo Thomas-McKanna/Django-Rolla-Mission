@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from datetime import datetime
 
+from rolla_mission.storage_backends import PrivateMediaStorage
 
 class Patron(models.Model):
     first_name = models.CharField(max_length=70)
