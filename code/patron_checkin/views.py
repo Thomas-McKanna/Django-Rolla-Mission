@@ -1,5 +1,21 @@
-from django.http import HttpResponse
+from patron_checkin.models import Patron
+from patron_checkin.serializers import ExtendedPatronSerializer
+from patron_checkin.serializers import HeadshotSerializer
+from patron_checkin.serializers import SignatureSerializer
+from rest_framework import generics
+from rest_framework.parsers import JSONParser, MultiPartParser
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the patrons index.")
+class PatronList(generics.ListCreateAPIView):
+    queryset = Patron.objects.all()
+    serializer_class = ExtendedPatronSerializer
+
+
+class UpdateHeadshot(generics.RetrieveUpdateAPIView):
+    queryset = Patron.objects.all()
+    serializer_class = HeadshotSerializer
+
+
+class UpdateSignature(generics.RetrieveUpdateAPIView):
+    queryset = Patron.objects.all()
+    serializer_class = SignatureSerializer
