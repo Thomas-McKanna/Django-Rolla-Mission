@@ -13,7 +13,7 @@ class ExtendedPatronSerializer(serializers.ModelSerializer):
 class PatronSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patron
-        fields = ['id', 'first_name', 'last_name']
+        fields = ['_id', 'first_name', 'last_name']
 
 class HeadshotSerializer(serializers.ModelSerializer):
     class Meta:

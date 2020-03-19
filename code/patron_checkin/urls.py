@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     path('patrons/', views.PatronList.as_view()),
     path('patrons/headshot/<uuid:pk>', views.UpdateHeadshot.as_view()),
-    path('patrons/signature/<uuid:pk>', views.UpdateSignature.as_view())
+    path('patrons/signature/<uuid:pk>', views.UpdateSignature.as_view()),
+    path('patrons/search/', views.PatronSearch.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
