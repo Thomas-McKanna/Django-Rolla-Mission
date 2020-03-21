@@ -15,7 +15,7 @@ class PatronAdmin(admin.ModelAdmin):
             'fields': ('veteran', 'violence', 'offender')
         }),
         ('History', {
-            'fields': ('duration_homeless', 'date_homeless', 'city', 'reason', 'other')
+            'fields': ('duration_homeless', 'city', 'reason', 'other')
         })
     )
 
