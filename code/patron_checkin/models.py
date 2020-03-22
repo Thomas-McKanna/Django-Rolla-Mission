@@ -7,7 +7,7 @@ from rolla_mission.storage_backends import PrivateMediaStorage
 
 class Patron(models.Model):
     _id = models.CharField(
-        max_length=127, primary_key=True, default=uuid.uuid4())
+        max_length=127, primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=127)
     birth_date = models.DateField()
     gender = models.CharField(max_length=31)
@@ -15,7 +15,7 @@ class Patron(models.Model):
     veteran = models.BooleanField(default=False)
     violence = models.BooleanField('fleeing violence', default=False)
     offender = models.BooleanField('sex offender', default=False)
-    time_homeless = models.CharField(max_length=127)
+    date_homeless = models.DateTimeField('date became homeless')
     city = models.CharField('city became homeless', max_length=127)
     reason = models.CharField(
         'reason in Rolla', max_length=127, null=True, blank=True)
