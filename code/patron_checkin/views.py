@@ -1,21 +1,11 @@
 from patron_checkin.models import Patron
-from patron_checkin.serializers import ExtendedPatronSerializer
-from patron_checkin.serializers import HeadshotSerializer
-from patron_checkin.serializers import SignatureSerializer
-from rest_framework import generics
-from rest_framework.parsers import JSONParser, MultiPartParser
+from django.views import generic
+from datetime import datetime, timedelta
 
+class IndexView(generic.ListView):
+    template_name = 'patron_checkin/index.html'
+    context_object_name = 'patron_list'
 
-class PatronList(generics.ListCreateAPIView):
-    queryset = Patron.objects.all()
-    serializer_class = ExtendedPatronSerializer
-
-
-class UpdateHeadshot(generics.RetrieveUpdateAPIView):
-    queryset = Patron.objects.all()
-    serializer_class = HeadshotSerializer
-
-
-class UpdateSignature(generics.RetrieveUpdateAPIView):
-    queryset = Patron.objects.all()
-    serializer_class = SignatureSerializer
+    def get_queryset(self):
+        time_threshold = datetime.now() - timedelta(hours=12)
+        return Patron.objects.filter(checkin__date__gt=time_threshold)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from patron_checkin.models import Patron
+from patron_checkin.models import Patron, CheckIn
 
 class ExtendedPatronSerializer(serializers.ModelSerializer):
     """
@@ -13,7 +13,7 @@ class ExtendedPatronSerializer(serializers.ModelSerializer):
 class PatronSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patron
-        fields = ['id', 'first_name', 'last_name']
+        fields = ['_id', 'first_name', 'last_name']
 
 class HeadshotSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,8 @@ class SignatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patron
         fields = ['signature']
+
+class CheckInSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CheckIn
+        fields = ['patron_id', 'date']
