@@ -14,7 +14,7 @@ class Patron(models.Model):
     veteran = models.BooleanField(default=False)
     violence = models.BooleanField('fleeing violence', default=False)
     offender = models.BooleanField('sex offender', default=False)
-    time_homeless = models.CharField(max_length=70)
+    date_homeless = models.DateTimeField()
     city = models.CharField('city became homeless', max_length=70)
     reason = models.CharField('reason in Rolla', max_length=20, null=True, blank=True)
     other = models.CharField('other reason', max_length=200, null=True, blank=True)    
