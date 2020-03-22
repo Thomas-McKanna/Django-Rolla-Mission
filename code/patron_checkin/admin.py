@@ -17,8 +17,8 @@ class PatronAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Personal Information', {
-            'fields': ('headshot_img', 'first_name', 'last_name',
-                       'birth_date', 'gender', 'phone', 'signature_img')
+            'fields': ('headshot_img', 'name', 'birth_date', 'gender',
+                       'phone', 'signature_img')
         }),
         ('Special Status', {
             'classes': ('collapse',),
@@ -26,7 +26,7 @@ class PatronAdmin(admin.ModelAdmin):
         }),
         ('History', {
             'classes': ('collapse',),
-            'fields': ('time_homeless', 'city', 'reason', 'other')
+            'fields': ('time_homeless', 'city', 'reason')
         }),
     )
 
