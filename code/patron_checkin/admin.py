@@ -34,7 +34,7 @@ class PatronAdmin(admin.ModelAdmin):
     readonly_fields = ["headshot_img", "signature_img", 'duration_homeless']
 
     def headshot_img(self, obj):
-        return mark_safe('<img src="{url}" width="150" height="240" />'.format(
+        return mark_safe('<img src="{url}" width="196" />'.format(
             url=obj.headshot.url,)
         )
     headshot_img.short_description = 'Picture'

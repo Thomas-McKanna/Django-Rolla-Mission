@@ -1,6 +1,10 @@
 from django.db import models
-import uuid
+from django.core.files import File
 from datetime import datetime
+from PIL import Image as Img
+from PIL import ExifTags
+from io import BytesIO
+import uuid
 
 from rolla_mission.storage_backends import PrivateMediaStorage
 
@@ -26,6 +30,34 @@ class Patron(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        """ Rotate the headshot based on EXIF tags. """
+        if self.headshot and self.headshot.readable():
+            pilImage = Img.open(BytesIO(self.headshot.read()))
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+            exif = dict(pilImage._getexif().items())
+
+            # https://exiftool.org/TagNames/EXIF.html (Orientation Tag)
+            ROTATE_180 = 3
+            ROTATE_90_CW = 6
+            ROTATE_270_CW = 8
+
+            if exif[orientation] == ROTATE_180:
+                pilImage = pilImage.rotate(180, expand=True)
+            elif exif[orientation] == ROTATE_90_CW:
+                pilImage = pilImage.rotate(270, expand=True)
+            elif exif[orientation] == ROTATE_270_CW:
+                pilImage = pilImage.rotate(90, expand=True)
+
+            output = BytesIO()
+            pilImage.save(output, format='JPEG', quality=75)
+            output.seek(0)
+            self.headshot = File(output, self.headshot.name)
+
+        return super(Patron, self).save(*args, **kwargs)
 
 
 class CheckIn(models.Model):
