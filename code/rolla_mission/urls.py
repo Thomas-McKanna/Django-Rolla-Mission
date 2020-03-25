@@ -21,3 +21,6 @@ urlpatterns = [
     path('checkin/', include('patron_checkin.urls')),
     path('api/', include('api.urls')),
 ]
+
+admin.site.site_header = "The Rolla Mission Patron Administration"
+admin.site.site_url = None

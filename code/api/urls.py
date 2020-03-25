@@ -8,6 +8,7 @@ urlpatterns = [
     path('patrons/headshot/<uuid:pk>', views.UpdateHeadshot.as_view()),
     path('patrons/signature/<uuid:pk>', views.UpdateSignature.as_view()),
     path('patrons/checkin/', views.CheckInPatron.as_view()),
+    path('patrons/search/<str:name>', views.PatronSearch.as_view()),
     path('api-auth/', include('rest_framework.urls')),
 ]
 

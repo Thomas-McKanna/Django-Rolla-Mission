@@ -1,5 +1,6 @@
 from patron_checkin.models import Patron, CheckIn
 from api.serializers import ExtendedPatronSerializer
+from api.serializers import PatronSerializer
 from api.serializers import HeadshotSerializer
 from api.serializers import SignatureSerializer
 from api.serializers import CheckInSerializer
@@ -28,3 +29,13 @@ class UpdateSignature(generics.RetrieveUpdateAPIView):
 class CheckInPatron(generics.CreateAPIView):
     serializer_class = CheckInSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class PatronSearch(generics.ListAPIView):
+    serializer_class = PatronSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        name = self.kwargs['name']
+        queryset = Patron.objects.filter(name__icontains=name).order_by('name')
+        return queryset
