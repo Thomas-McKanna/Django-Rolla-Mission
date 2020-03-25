@@ -17,7 +17,7 @@ class PatronAdmin(admin.ModelAdmin):
     list_display = ('name', 'veteran', 'violence', 'offender')
     list_filter = ('veteran', 'violence', 'offender',
                    'gender', 'date_homeless')
-    search_fields = ('name')
+    search_fields = ('name',)
 
     inlines = [CheckInAdmin, ]
 
