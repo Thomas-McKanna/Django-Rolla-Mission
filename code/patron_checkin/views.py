@@ -1,8 +1,10 @@
 from patron_checkin.models import Patron
 from django.views import generic
 from datetime import datetime, timedelta
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class IndexView(generic.ListView):
+
+class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'patron_checkin/index.html'
     context_object_name = 'patron_list'
 

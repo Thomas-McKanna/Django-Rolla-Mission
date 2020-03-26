@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      {% load static %}
+      <img src="{% static "patron_checkin/logo.png" %}" id="icon" alt="User Icon" />
+    </div>
+
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- Login Form -->
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="text" required id="id_username" class="fadeIn second" name="username" placeholder="login">
+      <input type="password" required id="id_password" class="fadeIn third" name="password" placeholder="password">
+      <!-- Error Messages -->
+      {% if form.errors %}
+      <p>Invalid username or password. Please try again.</p>
+      {% endif %}
+      <input type="submit" class="fadeIn fourth" value="login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

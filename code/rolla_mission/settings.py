@@ -25,6 +25,8 @@ SECRET_KEY = 'o27)6!ia5&!$fx9!el(j1ykbb%g&h#f3u+$#hq4h#p06jh-e#5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_URL = '/accounts/login/'
+
 ALLOWED_HOSTS = []
 
 
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'rolla_mission.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
