@@ -20,14 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'o27)6!ia5&!$fx9!el(j1ykbb%g&h#f3u+$#hq4h#p06jh-e#5'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 LOGIN_URL = '/accounts/login/'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.212.164.185']
 
 
 # Application definition
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mission',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'US/Central'
 
 USE_I18N = True
 
@@ -127,6 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/opt/bitnami/apps/django/django_projects/Django-Rolla-Mission/static'
 
 # AWS S3-related configuration variables
 
