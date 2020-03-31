@@ -5,9 +5,8 @@ Django website for CS 4096 (Spring 2020).
 
 There are certain steps you should take anytime you pull this repo. If this is your first time using the project, please skip to Setup below.
 
-1. Run `secret/makemigrations.sh` (or .bat for Windows).
-2. Run `secret/migrate.sh` (or .bat for Windows).
-3. Finally, run the server with `secret/run.sh` (or .bat for Windows)
+1. Run `secret/manage.sh migrate` 
+2. Start the server with `secret/manage.sh runserver`
 
 Note that you must receive the secret folder from the maintainer of this repo, as it contains secret keys for accessing AWS.
 
@@ -25,10 +24,10 @@ Note that you must receive the secret folder from the maintainer of this repo, a
 
 - Get a copy of the `secrets` folder from the maintainer of this repo and copy it into the repository.
 
-- Run `secret/migrate.sh` (or .bat for Windows) to create the necessary database tables.
+- Run `secret/manage.sh migrate`
 
-- Run `secret/createsuperuser.sh` (or .bat for Windows)  to make a user for logging into the admin interface. It doesn't really matter what the username and password are, but I suggest username "admin" and password "password".
+- Run `secret/manage.sh createsuperuser` to make a user for logging into the admin interface. It doesn't really matter what the username and password are, but I suggest username "admin" and password "password".
 
-- Run `secret/run.sh` (or .bat for Windows) to start the server.
+- Start the server with `secret/manage.sh runserver`
 
 
