@@ -27,7 +27,7 @@ DEBUG = True
 
 LOGIN_URL = '/accounts/login/'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.14']
 
 
 # Application definition
