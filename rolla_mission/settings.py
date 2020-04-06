@@ -27,6 +27,7 @@ DEBUG = True
 
 LOGIN_URL = '/accounts/login/'
 
+# Change this line to your IP address if testing locally
 ALLOWED_HOSTS = ['3.212.164.185']
 
 
@@ -127,7 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/bitnami/apps/django/django_projects/Django-Rolla-Mission/static'
+STATIC_ROOT = 'static'
 
 # AWS S3-related configuration variables
 
