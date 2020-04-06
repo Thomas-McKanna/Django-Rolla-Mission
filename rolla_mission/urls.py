@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('checkin/', include('patron_checkin.urls')),
+    path('', include('patron_checkin.urls')),
     path('api/', include('api.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
 ]

@@ -38,6 +38,7 @@ class Patron(models.Model):
             for orientation in ExifTags.TAGS.keys():
                 if ExifTags.TAGS[orientation] == 'Orientation':
                     break
+
             exif = dict(pilImage._getexif().items())
 
             # https://exiftool.org/TagNames/EXIF.html (Orientation Tag)
