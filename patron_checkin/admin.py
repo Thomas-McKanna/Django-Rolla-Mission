@@ -14,9 +14,9 @@ class CheckInAdmin(admin.TabularInline):
 
 @admin.register(Patron)
 class PatronAdmin(admin.ModelAdmin):
-    list_display = ('name', 'veteran', 'violence', 'offender')
-    list_filter = ('veteran', 'violence', 'offender',
-                   'gender', 'date_homeless')
+    list_display = ('name', 'last_checkin', 'veteran', 'violence', 'offender')
+    list_filter = ('last_checkin', 'veteran', 'violence', 'offender',
+                   'gender')
     search_fields = ('name',)
 
     inlines = [CheckInAdmin, ]

@@ -27,6 +27,7 @@ class Patron(models.Model):
         null=True, blank=True, storage=PrivateMediaStorage())
     signature = models.ImageField(
         null=True, blank=True, storage=PrivateMediaStorage())
+    last_checkin = models.DateTimeField('last checkin', null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -67,3 +68,7 @@ class CheckIn(models.Model):
 
     def __str__(self):
         return str(self.date)
+
+    def save(self, *args, **kwargs):
+        Patron.objects.filter(_id=self.patron_id._id).update(last_checkin=datetime.now())
+        return super(CheckIn, self).save(*args, **kwargs)
