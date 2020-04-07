@@ -32,11 +32,11 @@ class PatronAdmin(admin.ModelAdmin):
         }),
         ('History', {
             'classes': ('collapse',),
-            'fields': ('date_homeless', 'city', 'reason')
+            'fields': ('date_homeless', 'date_profile_creation', 'city', 'reason')
         }),
     )
 
-    readonly_fields = ["headshot_img", "signature_img", 'duration_homeless']
+    readonly_fields = ["headshot_img", "signature_img", 'duration_homeless', 'date_profile_creation']
 
     def headshot_img(self, obj):
         return mark_safe('<img src="{url}" width="196" />'.format(
