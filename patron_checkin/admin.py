@@ -24,7 +24,8 @@ class PatronAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Personal Information', {
             'fields': ('headshot_img', 'name', 'birth_date', 'gender',
-                       'phone', 'duration_homeless', 'signature_img')
+                       'phone', 'duration_homeless', 'signature_img', 
+                       'date_profile_creation')
         }),
         ('Special Status', {
             'classes': ('collapse',),
@@ -36,7 +37,7 @@ class PatronAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ["headshot_img", "signature_img", 'duration_homeless']
+    readonly_fields = ["headshot_img", "signature_img", 'duration_homeless', 'date_profile_creation']
 
     def headshot_img(self, obj):
         return mark_safe('<img src="{url}" width="196" />'.format(
