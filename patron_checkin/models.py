@@ -3,6 +3,7 @@ from django.core.files import File
 from datetime import datetime
 from PIL import Image as Img
 from PIL import ExifTags
+from PIL import JpegImagePlugin
 from io import BytesIO
 import uuid
 
@@ -20,7 +21,8 @@ class Patron(models.Model):
     violence = models.BooleanField('fleeing violence', default=False)
     offender = models.BooleanField('sex offender', default=False)
     date_homeless = models.DateTimeField('date became homeless')
-    date_profile_creation = models.DateField('date signed', auto_now_add=True, null=True)
+    date_profile_creation = models.DateField(
+        'date signed', auto_now_add=True, null=True)
     city = models.CharField('city became homeless', max_length=127)
     reason = models.CharField(
         'reason in Rolla', max_length=127, null=True, blank=True)
@@ -41,24 +43,26 @@ class Patron(models.Model):
                 if ExifTags.TAGS[orientation] == 'Orientation':
                     break
 
-            exif = dict(pilImage._getexif().items())
+            if (isinstance(pilImage, JpegImagePlugin.JpegImageFile) and
+                    hasattr(pilImage, '_getexif')):
+                exif = dict(pilImage._getexif().items())
 
-            # https://exiftool.org/TagNames/EXIF.html (Orientation Tag)
-            ROTATE_180 = 3
-            ROTATE_90_CW = 6
-            ROTATE_270_CW = 8
+                # https://exiftool.org/TagNames/EXIF.html (Orientation Tag)
+                ROTATE_180 = 3
+                ROTATE_90_CW = 6
+                ROTATE_270_CW = 8
 
-            if exif[orientation] == ROTATE_180:
-                pilImage = pilImage.rotate(180, expand=True)
-            elif exif[orientation] == ROTATE_90_CW:
-                pilImage = pilImage.rotate(270, expand=True)
-            elif exif[orientation] == ROTATE_270_CW:
-                pilImage = pilImage.rotate(90, expand=True)
+                if exif[orientation] == ROTATE_180:
+                    pilImage = pilImage.rotate(180, expand=True)
+                elif exif[orientation] == ROTATE_90_CW:
+                    pilImage = pilImage.rotate(270, expand=True)
+                elif exif[orientation] == ROTATE_270_CW:
+                    pilImage = pilImage.rotate(90, expand=True)
 
-            output = BytesIO()
-            pilImage.save(output, format='JPEG', quality=75)
-            output.seek(0)
-            self.headshot = File(output, self.headshot.name)
+                output = BytesIO()
+                pilImage.save(output, format='JPEG', quality=75)
+                output.seek(0)
+                self.headshot = File(output, self.headshot.name)
 
         return super(Patron, self).save(*args, **kwargs)
 
@@ -71,5 +75,6 @@ class CheckIn(models.Model):
         return str(self.date)
 
     def save(self, *args, **kwargs):
-        Patron.objects.filter(_id=self.patron_id._id).update(last_checkin=datetime.now())
+        Patron.objects.filter(_id=self.patron_id._id).update(
+            last_checkin=datetime.now())
         return super(CheckIn, self).save(*args, **kwargs)
