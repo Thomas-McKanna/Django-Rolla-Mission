@@ -28,7 +28,7 @@ DEBUG = True
 LOGIN_URL = '/accounts/login/'
 
 # Change this line to your IP address if testing locally
-ALLOWED_HOSTS = ['3.212.164.185']
+ALLOWED_HOSTS = ['checkin.therollamission.org']
 
 
 # Application definition
