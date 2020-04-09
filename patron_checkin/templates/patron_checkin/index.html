@@ -29,7 +29,9 @@
                         aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
                         <div class="card-body">
                             <h4 class="text-center">Phone: {{ patron.phone }}</h4>
+                            {% if patron.headshot %}
                             <img src="{{ patron.headshot.url }}" />
+                            {% endif %}
                         </div>
                     </div>
                 </div>
