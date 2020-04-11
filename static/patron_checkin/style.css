@@ -1,12 +1,24 @@
-img {
+.headshot {
     max-width: 60px;
 }
 
+.highlight-headshot {
+    outline: 4px solid #4CBB17
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    max-width: 300px;
+    border-radius: 4px;
+}
 
 /* BASIC */
 
 body {
-    /* background-color: #7f945b; */
+    background-color: #7f945b;
 }
 
 a {
@@ -17,11 +29,11 @@ a {
 }
 
 h2 {
-    /* color: whitesmoke; */
+    color: whitesmoke;
 }
 
 h3 {
-    /* color: whitesmoke */
+    color: whitesmoke
 }
 
 
