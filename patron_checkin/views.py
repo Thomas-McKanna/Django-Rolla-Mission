@@ -10,4 +10,4 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         time_threshold = datetime.now() - timedelta(hours=12)
-        return Patron.objects.filter(checkin__date__gt=time_threshold)
+        return Patron.objects.filter(checkin__date__gt=time_threshold).order_by('-name')

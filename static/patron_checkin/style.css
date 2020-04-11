@@ -1,17 +1,12 @@
 img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 16px;
-    max-width: 300px;
-    border-radius: 4px;
+    max-width: 60px;
 }
 
 
 /* BASIC */
 
 body {
-    background-color: #7f945b;
+    /* background-color: #7f945b; */
 }
 
 a {
@@ -22,11 +17,11 @@ a {
 }
 
 h2 {
-    color: whitesmoke;
+    /* color: whitesmoke; */
 }
 
 h3 {
-    color: whitesmoke
+    /* color: whitesmoke */
 }
 
 
@@ -120,7 +115,8 @@ input[type=reset]:active {
     transform: scale(0.95);
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
