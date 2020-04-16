@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
+from django import forms
 
 from .models import Patron, CheckIn
 
@@ -10,6 +11,16 @@ class CheckInAdmin(admin.TabularInline):
     readonly_fields = ['date']
     ordering = ["-date"]
     extra = 0
+
+
+class MyModelForm(forms.ModelForm):
+    GENDER_CHOICES = [
+            ('Male', 'Male'),
+            ('Female', 'Female'),
+            ('Other', 'Other'),
+            ('Prefer not to answer', 'Prefer not to answer'),
+    ]
+    gender = forms.ChoiceField(choices=GENDER_CHOICES)
 
 
 @admin.register(Patron)
@@ -38,6 +49,9 @@ class PatronAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = ["headshot_img", "signature_img", 'duration_homeless', 'date_profile_creation']
+    
+    form = MyModelForm
+
 
     def headshot_img(self, obj):
         return mark_safe('<img src="{url}" width="196" />'.format(
