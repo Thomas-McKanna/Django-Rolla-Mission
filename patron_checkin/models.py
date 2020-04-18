@@ -44,7 +44,8 @@ class Patron(models.Model):
                     break
 
             if (isinstance(pilImage, JpegImagePlugin.JpegImageFile) and
-                    hasattr(pilImage, '_getexif')):
+                    hasattr(pilImage, '_getexif') and
+                    pilImage._getexif() is not None):
                 exif = dict(pilImage._getexif().items())
 
                 # https://exiftool.org/TagNames/EXIF.html (Orientation Tag)
