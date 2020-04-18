@@ -60,7 +60,7 @@ class PatronAdmin(admin.ModelAdmin):
     headshot_img.short_description = 'Picture'
 
     def signature_img(self, obj):
-        return mark_safe('<img src="{url}" width="240" height="40" />'.format(
+        return mark_safe('<img src="{url}"  height="60" />'.format(
             url=obj.signature.url,)
         )
     signature_img.short_description = 'Signature'
