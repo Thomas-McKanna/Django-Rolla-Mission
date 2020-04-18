@@ -31,6 +31,7 @@ class Patron(models.Model):
     signature = models.ImageField(
         null=True, blank=True, storage=PrivateMediaStorage())
     last_checkin = models.DateTimeField('last checkin', null=True, blank=True)
+    notes = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'

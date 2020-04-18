@@ -21,6 +21,7 @@ class MyModelForm(forms.ModelForm):
             ('Prefer not to answer', 'Prefer not to answer'),
     ]
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
+    notes = forms.CharField(widget=forms.Textarea)
 
 
 @admin.register(Patron)
@@ -35,8 +36,7 @@ class PatronAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Personal Information', {
             'fields': ('headshot_img', 'name', 'birth_date', 'gender',
-                       'phone', 'duration_homeless', 'signature_img', 
-                       'date_profile_creation')
+                       'phone', 'duration_homeless', 'notes')
         }),
         ('Special Status', {
             'classes': ('collapse',),
@@ -45,6 +45,10 @@ class PatronAdmin(admin.ModelAdmin):
         ('History', {
             'classes': ('collapse',),
             'fields': ('date_homeless', 'city', 'reason')
+        }),
+        ('Signature', {
+            'classes': ('collapse',),
+            'fields': ('signature_img', 'date_profile_creation')
         }),
     )
 
