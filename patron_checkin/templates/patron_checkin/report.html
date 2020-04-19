@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <title>Patron Report</title>
+    <style>
+      .headshot {
+        width: 15%;
+        float: left;
+        margin-right: 8px;
+      }
+      .signature {
+        height: 35px;
+        border: dotted gray;
+      }
+      .patron {
+        margin-bottom: 8px;
+      }
+      table {
+        width: 83%;
+      }
+      .field {
+        font-weight: bold;
+      }
+      @page {
+        @bottom-left {
+          content: counter(page) ' of ' counter(pages);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Registered Patron Report </h2>
+    <h3>Generated on {% now 'Y-m-d' %}</h3>
+    {% for patron in patrons %}
+    <div class="patron">
+      <div>
+        {% if patron.headshot and patron.headshot.url %}
+        <img class="headshot" src="{{ patron.headshot.url }}"/>
+        {% else %}
+        <p class="headshot">No Picture</p> 
+        {% endif %}
+        <table>
+          <tr>
+            <td class="field">Name:</td>
+            <td>{{ patron.name }}</td>
+            <td class="field">Fleeing violence:</td>
+            <td>
+              {% if patron.violence %}
+                Yes
+              {% else %}
+                No
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td class="field">Phone #:</td>
+            <td>{{ patron.phone }}</td>
+            <td class="field">Veteran:</td>
+            <td>
+              {% if patron.veteran %}
+                Yes
+              {% else %}
+                No
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td class="field">Gender:</td>
+            <td>{{ patron.gender }}</td>
+            <td class="field">Sex offender:</td>
+            <td>
+              {% if patron.offender %}
+                Yes
+              {% else %}
+                No
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td class="field">Date of birth:</td>
+            <td>{{ patron.birth_date }}</td>
+            <td class="field">Last checkin:</td>
+            <td>
+              {% if patron.last_checkin %}
+                {{ patron.last_checkin|date:'Y-m-d' }}
+              {% else %}
+                None
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+        {% if patron.signature and patron.signature.url %}
+        <img class="signature" src="{{ patron.signature.url }}"/>
+        Signed on {{ patron.date_profile_creation }}
+        {% else %}
+        <p>No signature was provided.</p>
+        {% endif %}
+        <hr/>
+      </div>
+    </div>
+    {% endfor %}
+  </body>
+</html>
