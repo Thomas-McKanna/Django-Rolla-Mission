@@ -21,7 +21,7 @@ class MyModelForm(forms.ModelForm):
             ('Prefer not to answer', 'Prefer not to answer'),
     ]
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    notes = forms.CharField(widget=forms.Textarea)
+    notes = forms.CharField(widget=forms.Textarea, required=False)
 
 
 @admin.register(Patron)
