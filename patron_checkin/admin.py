@@ -5,12 +5,19 @@ from django import forms
 
 from .models import Patron, CheckIn
 
+class AlwaysChangedModelForm(forms.ModelForm):
+    def has_changed(self):
+        return True
 
 class CheckInAdmin(admin.TabularInline):
     model = CheckIn
     readonly_fields = ['date']
     ordering = ["-date"]
     extra = 0
+    # Normally, inline fields need to be changed to actually be save.
+    # This workaround allows new checkins, which are unchanged by the user,
+    # to be saved.
+    form = AlwaysChangedModelForm
 
 
 class MyModelForm(forms.ModelForm):
