@@ -56,7 +56,7 @@ class PatronAdmin(admin.ModelAdmin):
         else:
             return (
                 ('Personal Information', {
-                    'fields': ('name', 'birth_date', 'gender', 'phone')
+                    'fields': ('name', 'birth_date', 'gender', 'phone', 'notes')
                 }),
                 ('Special Status', {
                     'fields': ('veteran', 'violence', 'offender')
