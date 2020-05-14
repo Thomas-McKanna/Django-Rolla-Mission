@@ -19,26 +19,27 @@ class CustomDateFieldListFilter(DateFieldListFilter):
             today = now.replace(hour=0, minute=0, second=0, microsecond=0)
         else:       # field is a models.DateField
             today = now.date()
-        one_day_past = today + datetime.timedelta(days=1)
-        two_days_past = one_day_past + datetime.timedelta(days=1)
-        three_days_past = two_days_past + datetime.timedelta(days=1)
-        four_days_past = three_days_past + datetime.timedelta(days=1)
+        tomorrow = today + datetime.timedelta(days=1)
+        one_day_past = today - datetime.timedelta(days=1)
+        two_days_past = one_day_past - datetime.timedelta(days=1)
+        three_days_past = two_days_past - datetime.timedelta(days=1)
+        four_days_past = three_days_past - datetime.timedelta(days=1)
 
         self.links = (
             (_('Today'), {
                 self.lookup_kwarg_since: str(today),
-                self.lookup_kwarg_until: str(one_day_past),
+                self.lookup_kwarg_until: str(tomorrow),
             }),
             (_('One day ago'), {
                 self.lookup_kwarg_since: str(one_day_past),
-                self.lookup_kwarg_until: str(two_days_past),
+                self.lookup_kwarg_until: str(today),
             }),
             (_('Two days ago'), {
                 self.lookup_kwarg_since: str(two_days_past),
-                self.lookup_kwarg_until: str(three_days_past),
+                self.lookup_kwarg_until: str(one_day_past),
             }),
             (_('Three days ago'), {
                 self.lookup_kwarg_since: str(three_days_past),
-                self.lookup_kwarg_until: str(four_days_past),
+                self.lookup_kwarg_until: str(two_days_past),
             }),
         )
