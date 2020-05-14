@@ -4,10 +4,13 @@ from django.utils.timesince import timesince
 from django import forms
 
 from .models import Patron, CheckIn
+from .custom_date_field_filter import CustomDateFieldListFilter
+
 
 class AlwaysChangedModelForm(forms.ModelForm):
     def has_changed(self):
         return True
+
 
 class CheckInAdmin(admin.TabularInline):
     model = CheckIn
@@ -22,10 +25,10 @@ class CheckInAdmin(admin.TabularInline):
 
 class MyModelForm(forms.ModelForm):
     GENDER_CHOICES = [
-            ('Male', 'Male'),
-            ('Female', 'Female'),
-            ('Other', 'Other'),
-            ('Prefer not to answer', 'Prefer not to answer'),
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+        ('Prefer not to answer', 'Prefer not to answer'),
     ]
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
     notes = forms.CharField(widget=forms.Textarea, required=False)
@@ -34,7 +37,8 @@ class MyModelForm(forms.ModelForm):
 @admin.register(Patron)
 class PatronAdmin(admin.ModelAdmin):
     list_display = ('name', 'last_checkin', 'veteran', 'violence', 'offender')
-    list_filter = ('last_checkin', 'veteran', 'violence', 'offender',
+    list_filter = (('date_profile_creation', CustomDateFieldListFilter),
+                   'last_checkin', 'veteran', 'violence', 'offender',
                    'gender')
     search_fields = ('name',)
 
@@ -59,10 +63,10 @@ class PatronAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ["headshot_img", "signature_img", 'duration_homeless', 'date_profile_creation']
-    
-    form = MyModelForm
+    readonly_fields = ["headshot_img", "signature_img",
+                       'duration_homeless', 'date_profile_creation']
 
+    form = MyModelForm
 
     def headshot_img(self, obj):
         return mark_safe('<img src="{url}" width="196" />'.format(
