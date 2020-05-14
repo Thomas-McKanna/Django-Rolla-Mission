@@ -26,11 +26,7 @@ class CustomDateFieldListFilter(DateFieldListFilter):
         four_days_past = three_days_past - datetime.timedelta(days=1)
 
         self.links = (
-            (_('Today'), {
-                self.lookup_kwarg_since: str(today),
-                self.lookup_kwarg_until: str(tomorrow),
-            }),
-            (_('One day ago'), {
+            (_('Within a day ago'), {
                 self.lookup_kwarg_since: str(one_day_past),
                 self.lookup_kwarg_until: str(today),
             }),
