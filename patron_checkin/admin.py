@@ -43,25 +43,39 @@ class PatronAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     inlines = [CheckInAdmin, ]
-
-    fieldsets = (
-        ('Personal Information', {
-            'fields': ('headshot_img', 'name', 'birth_date', 'gender',
-                       'phone', 'duration_homeless', 'notes')
-        }),
-        ('Special Status', {
-            'classes': ('collapse',),
-            'fields': ('veteran', 'violence', 'offender')
-        }),
-        ('History', {
-            'classes': ('collapse',),
-            'fields': ('date_homeless', 'city', 'reason')
-        }),
-        ('Signature', {
-            'classes': ('collapse',),
-            'fields': ('signature_img', 'date_profile_creation')
-        }),
-    )
+    
+    def get_fieldsets(self, request, obj=None):
+        if obj:
+            return (
+                ('Personal Information', {
+                    'fields': ('headshot_img', 'name', 'birth_date', 'gender',
+                    'phone', 'duration_homeless', 'notes')
+                }),
+                ('Special Status', {
+                    'classes': ('collapse',),
+                    'fields': ('veteran', 'violence', 'offender')
+                }),
+                ('History', {
+                    'classes': ('collapse',),
+                    'fields': ('date_homeless', 'city', 'reason')
+                }),
+                ('Signature', {
+                    'classes': ('collapse',),
+                    'fields': ('signature_img', 'date_profile_creation')
+                }),
+            )
+        else:
+            return (
+                ('Personal Information', {
+                    'fields': ('name', 'birth_date', 'gender', 'phone', 'notes')
+                }),
+                ('Special Status', {
+                    'fields': ('veteran', 'violence', 'offender')
+                }),
+                ('History', {
+                    'fields': ('date_homeless', 'city', 'reason')
+                }),
+            )
 
     readonly_fields = ["headshot_img", "signature_img",
                        'duration_homeless', 'date_profile_creation']
