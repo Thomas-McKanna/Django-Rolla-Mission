@@ -1,3 +1,5 @@
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.db import models
 from django.core.files import File
 from datetime import datetime
@@ -77,6 +79,21 @@ class CheckIn(models.Model):
         return str(self.date)
 
     def save(self, *args, **kwargs):
-        Patron.objects.filter(_id=self.patron_id._id).update(
-            last_checkin=datetime.now())
         return super(CheckIn, self).save(*args, **kwargs)
+
+def update_last_checkin(instance):
+    most_recent_checkin = CheckIn.objects.filter(patron_id=instance.patron_id._id).order_by('-date').first()
+    if not most_recent_checkin:
+        most_recent_checkin = None
+    else:
+        most_recent_checkin = most_recent_checkin.date
+    Patron.objects.filter(_id=instance.patron_id._id).update(
+        last_checkin=most_recent_checkin)
+
+@receiver(post_save, sender=CheckIn)
+def on_checkin_saved(sender, instance, **kwargs):
+    update_last_checkin(instance)
+
+@receiver(post_delete, sender=CheckIn)
+def on_checkin_deleted(sender, instance, **kwargs):
+    update_last_checkin(instance)

@@ -14,7 +14,7 @@ class AlwaysChangedModelForm(forms.ModelForm):
 
 class CheckInAdmin(admin.TabularInline):
     model = CheckIn
-    readonly_fields = ['date']
+    fields = ['date']
     ordering = ["-date"]
     extra = 0
     # Normally, inline fields need to be changed to actually be save.
@@ -97,3 +97,5 @@ class PatronAdmin(admin.ModelAdmin):
     def duration_homeless(self, obj):
         return timesince(obj.date_homeless)
     duration_homeless.short_description = 'Duration Homeless'
+
+    

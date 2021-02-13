@@ -30,11 +30,11 @@ LOGIN_URL = '/accounts/login/'
 # Change this line to your IP address if testing locally
 ALLOWED_HOSTS = ['checkin.therollamission.org']
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'patron_checkin.apps.PatronCheckinConfig',
+    'checkin_date_filter.apps.CheckinDateFilterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,7 +120,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -133,10 +133,11 @@ STATIC_ROOT = 'static'
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID'] 
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] 
-AWS_STORAGE_BUCKET_NAME = 'tjmzq8-mission-assets'
+AWS_STORAGE_BUCKET_NAME = 'tjmzq8-django-assets'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = "virtual"
 
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
@@ -144,3 +145,4 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
 PRIVATE_FILE_STORAGE = 'mysite.storage_backends.PrivateMediaStorage'
+
